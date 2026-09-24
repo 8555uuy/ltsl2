@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Itsl2.Core/Itsl2.Core.csproj" />
+  <Project Path="src/Itsl2.App/Itsl2.App.csproj" />
+</Solution>

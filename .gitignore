@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+
+# Reference repositories used for local research.
+hmcl/
+pcl2-ce/
