@@ -36,3 +36,12 @@ dotnet publish .\src\Itsl2.App\Itsl2.App.csproj -c Release -r win-x64 --self-con
 - 首页显示创作者信息并可直达项目仓库
 
 当前启动链路以 Mojang 原版版本为基础，模组加载器和更复杂的版本继承关系将在后续完善。
+
+## 项目结构
+
+- `Itsl2.Core`：共享模型、实例存储和 Java 环境服务
+- `Itsl2.Game`：Minecraft 版本安装、依赖准备和 Java 启动
+- `Itsl2.Auth`：Yggdrasil 和第三方皮肤站认证
+- `Itsl2.Download`：Modrinth 搜索与文件下载
+- `Itsl2.Servers`：Minecraft 服务器状态查询
+- `Itsl2.App`：WPF 用户界面

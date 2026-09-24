@@ -1,4 +1,8 @@
 <Solution>
   <Project Path="src/Itsl2.Core/Itsl2.Core.csproj" />
+  <Project Path="src/Itsl2.Game/Itsl2.Game.csproj" />
+  <Project Path="src/Itsl2.Auth/Itsl2.Auth.csproj" />
+  <Project Path="src/Itsl2.Download/Itsl2.Download.csproj" />
+  <Project Path="src/Itsl2.Servers/Itsl2.Servers.csproj" />
   <Project Path="src/Itsl2.App/Itsl2.App.csproj" />
 </Solution>

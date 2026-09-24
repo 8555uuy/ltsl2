@@ -11,5 +11,9 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Itsl2.Core\Itsl2.Core.csproj" />
+    <ProjectReference Include="..\Itsl2.Game\Itsl2.Game.csproj" />
+    <ProjectReference Include="..\Itsl2.Auth\Itsl2.Auth.csproj" />
+    <ProjectReference Include="..\Itsl2.Download\Itsl2.Download.csproj" />
+    <ProjectReference Include="..\Itsl2.Servers\Itsl2.Servers.csproj" />
   </ItemGroup>
 </Project>
