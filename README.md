@@ -4,7 +4,7 @@
 
 ## 启动方式
 
-在 Windows 10 或更高版本、安装 .NET 10 SDK 后，在项目根目录执行：
+在 Windows 10 或更高版本、安装 .NET 8 SDK 或 .NET 8 Desktop Runtime 后，在项目根目录执行：
 
 ```powershell
 dotnet run --project .\src\Itsl2.App\Itsl2.App.csproj
@@ -27,5 +27,7 @@ dotnet publish .\src\Itsl2.App\Itsl2.App.csproj -c Release -r win-x64 --self-con
 - Java 运行环境检测
 - 启动前条件检查和异步状态反馈
 - Modrinth 模组搜索、版本筛选和下载到实例 `mods` 目录
+- 标准 Yggdrasil 第三方皮肤站登录
+- Minecraft Server List Ping 联机服务器查询
 
 完整的 Minecraft 版本下载、账户登录和 classpath 启动将在后续模块中接入。

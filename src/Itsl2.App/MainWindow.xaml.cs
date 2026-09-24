@@ -13,6 +13,7 @@ public partial class MainWindow : Window
     private readonly InstanceStore _instanceStore = new();
     private readonly ObservableCollection<GameInstance> _instances = new();
     private JavaRuntime? _javaRuntime;
+    private ThirdPartyAccount? _account;
 
     public MainWindow()
     {
@@ -96,6 +97,21 @@ public partial class MainWindow : Window
         }
 
         var window = new ModDownloadWindow(gameDirectory) { Owner = this };
+        window.ShowDialog();
+    }
+
+    private void LoginAccount_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new ThirdPartyLoginWindow { Owner = this };
+        if (window.ShowDialog() != true || window.Account is null) return;
+        _account = window.Account;
+        AccountStatus.Text = $"皮肤站：{_account.ProfileName}";
+        ActionMessage.Text = $"已登录 {_account.ProfileName}，启动时将使用该账户会话";
+    }
+
+    private void Multiplayer_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new MultiplayerWindow { Owner = this };
         window.ShowDialog();
     }
 

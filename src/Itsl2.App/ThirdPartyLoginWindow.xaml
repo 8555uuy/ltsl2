@@ -1,0 +1,33 @@
+<Window x:Class="Itsl2.App.ThirdPartyLoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="第三方皮肤站登录 · itsl2" Height="540" Width="560"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource PageBrush}">
+    <Grid Margin="34">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="第三方皮肤站" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock Text="使用标准 Yggdrasil 服务登录，密码只用于本次请求" Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,30,0,0">
+            <TextBlock Text="皮肤站地址" FontWeight="SemiBold" />
+            <TextBox x:Name="ServerUrlBox" Height="38" Padding="12,8" Margin="0,8,0,18" Text="https://littleskin.cn/csl" />
+            <TextBlock Text="用户名 / 邮箱" FontWeight="SemiBold" />
+            <TextBox x:Name="UsernameBox" Height="38" Padding="12,8" Margin="0,8,0,18" />
+            <TextBlock Text="密码" FontWeight="SemiBold" />
+            <PasswordBox x:Name="PasswordBox" Height="38" Padding="12,8" Margin="0,8,0,0" />
+            <Border Background="#FFF5E5" Padding="12" Margin="0,20,0,0">
+                <TextBlock Text="请确认你信任该皮肤站。itsl2 不会保存密码，登录令牌也不会写入磁盘。" Foreground="#8A5A00" TextWrapping="Wrap" />
+            </Border>
+        </StackPanel>
+        <Grid Grid.Row="2" Margin="0,24,0,0">
+            <TextBlock x:Name="StatusText" Text="等待登录" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,150,0" />
+            <Button x:Name="LoginButton" Content="登录" Width="120" HorizontalAlignment="Right" Background="{StaticResource BlueBrush}" Foreground="White" Click="Login_Click" />
+        </Grid>
+    </Grid>
+</Window>

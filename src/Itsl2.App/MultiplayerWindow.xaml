@@ -1,0 +1,51 @@
+<Window x:Class="Itsl2.App.MultiplayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="联机大厅 · itsl2" Height="620" Width="820"
+        MinHeight="500" MinWidth="680"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource PageBrush}">
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="联机大厅" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock Text="查询 Minecraft 服务器状态，保存常用服务器地址" Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0" />
+        </StackPanel>
+        <Grid Grid.Row="1" Margin="0,26,0,18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="HostBox" Height="38" Padding="12,8" Text="localhost" VerticalContentAlignment="Center" />
+            <TextBox x:Name="PortBox" Grid.Column="1" Height="38" Padding="10,8" Text="25565" Margin="8,0,0,0" VerticalContentAlignment="Center" />
+            <Button x:Name="QueryButton" Grid.Column="2" Content="⌁  查询状态" Height="38" Margin="8,0,0,0" Padding="16,8" Background="{StaticResource BlueBrush}" Foreground="White" Click="Query_Click" />
+        </Grid>
+        <ListBox x:Name="ServerList" Grid.Row="2" BorderThickness="0" Background="Transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="10" Padding="16" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Address}" Foreground="{StaticResource MutedBrush}" Margin="0,5,0,0" />
+                                <TextBlock Text="{Binding StatusText}" Foreground="{StaticResource BlueDarkBrush}" Margin="0,8,0,0" />
+                            </StackPanel>
+                            <Button Grid.Column="1" Content="复制地址" Padding="14,8" VerticalAlignment="Center" Click="Copy_Click" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock x:Name="StatusText" Grid.Row="3" Text="输入服务器地址后查询" Foreground="{StaticResource MutedBrush}" Margin="0,16,0,0" />
+    </Grid>
+</Window>

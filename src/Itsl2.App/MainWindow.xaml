@@ -18,14 +18,16 @@
                     <TextBlock Text="Minecraft 启动器" Foreground="#AFC4E8" FontSize="12" Margin="2,2,0,34" />
                     <Button Content="⌂  总览" HorizontalContentAlignment="Left" Background="#2F6FED" Foreground="White" />
                     <Button Content="▣  游戏实例" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" />
+                    <Button Content="⌁  联机大厅" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" Click="Multiplayer_Click" />
                     <Button Content="↓  下载中心" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" Click="DownloadCenter_Click" />
-                    <Button Content="⚙  设置" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" />
+                    <Button Content="⚙  皮肤站登录" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" Click="LoginAccount_Click" />
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom">
                     <Border BorderBrush="#38537F" BorderThickness="0,1,0,0" Padding="0,16,0,0">
                         <StackPanel>
                             <TextBlock Text="运行环境" Foreground="#AFC4E8" FontSize="12" />
                             <TextBlock x:Name="JavaStatus" Text="正在检测 Java..." Foreground="White" Margin="0,6,0,0" TextWrapping="Wrap" />
+                            <TextBlock x:Name="AccountStatus" Text="未登录皮肤站" Foreground="#AFC4E8" Margin="0,8,0,0" TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
                 </StackPanel>
