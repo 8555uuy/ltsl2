@@ -45,11 +45,11 @@
                 <StackPanel>
                     <TextBlock Text="总览" FontSize="30" FontWeight="SemiBold" />
                     <TextBlock Text="管理实例并快速启动 Minecraft" Foreground="{StaticResource MutedBrush}" Margin="0,5,0,0" />
-                    <TextBlock x:Name="ClockText" Text="今天也要顺利启动" Foreground="{StaticResource BlueDarkBrush}" FontSize="12" Margin="0,10,0,0" />
                 </StackPanel>
                 <Button Grid.Column="1" Content="＋ 添加实例" HorizontalAlignment="Right" Background="{StaticResource BlueBrush}" Foreground="White" Click="AddInstance_Click" />
             </Grid>
 
+                            <Button Content="作者：8555uuy" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#AFC4E8" Padding="0" Margin="0,14,0,0" Click="CreatorInfo_Click" />
             <Grid Grid.Row="1" Margin="0,28,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -123,21 +123,6 @@
                         <Button x:Name="DetectJavaButton" Content="⟳  检测 Java" Background="White" Foreground="{StaticResource BlueDarkBrush}" Click="DetectJava_Click" />
                         <ProgressBar x:Name="OperationProgress" Height="3" Margin="0,18,0,0" IsIndeterminate="True" Visibility="Collapsed" Foreground="{StaticResource BlueBrush}" />
                         <TextBlock x:Name="ActionMessage" Text="选择实例后可以执行操作" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" Margin="0,20,0,0" />
-                        <Border Background="White" CornerRadius="8" Padding="12" Margin="0,18,0,0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="38" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Border Width="32" Height="32" Background="#DCE8FF" CornerRadius="16">
-                                    <TextBlock Text="☺" Foreground="{StaticResource BlueBrush}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                                <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                    <TextBlock x:Name="AccountCardName" Text="游客玩家" FontWeight="SemiBold" />
-                                    <TextBlock x:Name="AccountCardMeta" Text="登录皮肤站后显示角色信息" Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,3,0,0" TextTrimming="CharacterEllipsis" />
-                                </StackPanel>
-                            </Grid>
-                        </Border>
                         <Grid Margin="0,10,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -146,13 +131,6 @@
                             <Button Content="▣  游戏目录" Background="White" Foreground="{StaticResource BlueDarkBrush}" Margin="0,0,4,0" Click="OpenGameDirectory_Click" />
                             <Button Content="◆  模组目录" Grid.Column="1" Background="White" Foreground="{StaticResource BlueDarkBrush}" Margin="4,0,0,0" Click="OpenModsDirectory_Click" />
                         </Grid>
-                        <Border Background="#FFF7E8" CornerRadius="8" Padding="12" Margin="0,10,0,0">
-                            <StackPanel>
-                                <TextBlock Text="今日小彩蛋" Foreground="#8A5A00" FontSize="11" />
-                                <TextBlock x:Name="TipText" Text="愿你的世界今天一次加载成功" Foreground="#6F4A00" TextWrapping="Wrap" Margin="0,4,0,0" />
-                                <Button Content="换一句" HorizontalAlignment="Left" Padding="0,5" Foreground="#8A5A00" Click="RandomTip_Click" />
-                            </StackPanel>
-                        </Border>
                     </StackPanel>
                 </Border>
             </Grid>

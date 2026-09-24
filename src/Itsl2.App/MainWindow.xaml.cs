@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Threading;
 using Microsoft.Win32;
 using Itsl2.Core.Models;
 using Itsl2.Core.Services;
@@ -19,25 +18,11 @@ public partial class MainWindow : Window
     private readonly ObservableCollection<GameInstance> _instances = new();
     private JavaRuntime? _javaRuntime;
     private ThirdPartyAccount? _account;
-    private readonly DispatcherTimer _clockTimer = new() { Interval = TimeSpan.FromSeconds(1) };
-    private readonly Random _random = new();
-    private static readonly string[] Tips =
-    [
-        "愿你的世界今天一次加载成功",
-        "今天适合探索一片没去过的地形",
-        "先备份存档，再去挑战远古城市",
-        "好玩的整合包，值得慢慢研究",
-        "把截图留住，下一次登录还能看见",
-        "服务器延迟低的时候，适合和朋友联机"
-    ];
 
     public MainWindow()
     {
         InitializeComponent();
         InstanceList.ItemsSource = _instances;
-        _clockTimer.Tick += (_, _) => UpdateClock();
-        _clockTimer.Start();
-        UpdateClock();
         Loaded += async (_, _) => await InitializeAsync();
     }
 
@@ -125,8 +110,6 @@ public partial class MainWindow : Window
         if (window.ShowDialog() != true || window.Account is null) return;
         _account = window.Account;
         AccountStatus.Text = $"皮肤站：{_account.ProfileName}";
-        AccountCardName.Text = _account.ProfileName;
-        AccountCardMeta.Text = $"{_account.Username} · {_account.ServerUrl}";
         ActionMessage.Text = $"已登录 {_account.ProfileName}，启动时将使用该账户会话";
     }
 
@@ -164,14 +147,13 @@ public partial class MainWindow : Window
         OpenDirectory(modsDirectory, "无法打开模组目录");
     }
 
-    private void RandomTip_Click(object sender, RoutedEventArgs e)
+    private void CreatorInfo_Click(object sender, RoutedEventArgs e)
     {
-        TipText.Text = Tips[_random.Next(Tips.Length)];
-    }
-
-    private void UpdateClock()
-    {
-        ClockText.Text = $"{DateTime.Now:yyyy 年 M 月 d 日 HH:mm:ss} · 今天也要顺利启动";
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "https://github.com/8555uuy/ltsl2",
+            UseShellExecute = true
+        });
     }
 
     private void OpenDirectory(string path, string errorMessage)
@@ -271,7 +253,6 @@ public partial class MainWindow : Window
 
     protected override void OnClosed(EventArgs e)
     {
-        _clockTimer.Stop();
         _minecraftInstallService.Dispose();
         base.OnClosed(e);
     }

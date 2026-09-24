@@ -33,6 +33,6 @@ dotnet publish .\src\Itsl2.App\Itsl2.App.csproj -c Release -r win-x64 --self-con
 - 使用 Java 真实启动 Minecraft，并在第三方账户登录后注入 authlib-injector
 - 首页显示当前角色、皮肤站和 Java 环境信息
 - 一键打开游戏目录与模组目录
-- 动态时间和随机启动小提示
+- 首页显示创作者信息并可直达项目仓库
 
 当前启动链路以 Mojang 原版版本为基础，模组加载器和更复杂的版本继承关系将在后续完善。
