@@ -1,7 +1,9 @@
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using Itsl2.Core.Models;
 using Itsl2.Core.Services;
@@ -17,11 +19,25 @@ public partial class MainWindow : Window
     private readonly ObservableCollection<GameInstance> _instances = new();
     private JavaRuntime? _javaRuntime;
     private ThirdPartyAccount? _account;
+    private readonly DispatcherTimer _clockTimer = new() { Interval = TimeSpan.FromSeconds(1) };
+    private readonly Random _random = new();
+    private static readonly string[] Tips =
+    [
+        "愿你的世界今天一次加载成功",
+        "今天适合探索一片没去过的地形",
+        "先备份存档，再去挑战远古城市",
+        "好玩的整合包，值得慢慢研究",
+        "把截图留住，下一次登录还能看见",
+        "服务器延迟低的时候，适合和朋友联机"
+    ];
 
     public MainWindow()
     {
         InitializeComponent();
         InstanceList.ItemsSource = _instances;
+        _clockTimer.Tick += (_, _) => UpdateClock();
+        _clockTimer.Start();
+        UpdateClock();
         Loaded += async (_, _) => await InitializeAsync();
     }
 
@@ -109,6 +125,8 @@ public partial class MainWindow : Window
         if (window.ShowDialog() != true || window.Account is null) return;
         _account = window.Account;
         AccountStatus.Text = $"皮肤站：{_account.ProfileName}";
+        AccountCardName.Text = _account.ProfileName;
+        AccountCardMeta.Text = $"{_account.Username} · {_account.ServerUrl}";
         ActionMessage.Text = $"已登录 {_account.ProfileName}，启动时将使用该账户会话";
     }
 
@@ -116,6 +134,66 @@ public partial class MainWindow : Window
     {
         var window = new MultiplayerWindow { Owner = this };
         window.ShowDialog();
+    }
+
+    private void OpenGameDirectory_Click(object sender, RoutedEventArgs e)
+    {
+        if (InstanceList.SelectedItem is not GameInstance instance)
+        {
+            ActionMessage.Text = "请先选择实例";
+            return;
+        }
+        OpenDirectory(instance.GameDirectory, "游戏目录尚未配置");
+    }
+
+    private void OpenModsDirectory_Click(object sender, RoutedEventArgs e)
+    {
+        if (InstanceList.SelectedItem is not GameInstance instance)
+        {
+            ActionMessage.Text = "请先选择实例";
+            return;
+        }
+        if (instance.GameDirectory == "未设置游戏目录")
+        {
+            ActionMessage.Text = "请先配置游戏目录";
+            return;
+        }
+
+        var modsDirectory = Path.Combine(instance.GameDirectory, "mods");
+        Directory.CreateDirectory(modsDirectory);
+        OpenDirectory(modsDirectory, "无法打开模组目录");
+    }
+
+    private void RandomTip_Click(object sender, RoutedEventArgs e)
+    {
+        TipText.Text = Tips[_random.Next(Tips.Length)];
+    }
+
+    private void UpdateClock()
+    {
+        ClockText.Text = $"{DateTime.Now:yyyy 年 M 月 d 日 HH:mm:ss} · 今天也要顺利启动";
+    }
+
+    private void OpenDirectory(string path, string errorMessage)
+    {
+        if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
+        {
+            ActionMessage.Text = errorMessage;
+            return;
+        }
+
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or System.ComponentModel.Win32Exception)
+        {
+            ActionMessage.Text = $"打开目录失败：{ex.Message}";
+        }
     }
 
     private async void Launch_Click(object sender, RoutedEventArgs e)
@@ -193,6 +271,7 @@ public partial class MainWindow : Window
 
     protected override void OnClosed(EventArgs e)
     {
+        _clockTimer.Stop();
         _minecraftInstallService.Dispose();
         base.OnClosed(e);
     }
