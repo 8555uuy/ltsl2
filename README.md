@@ -29,5 +29,7 @@ dotnet publish .\src\Itsl2.App\Itsl2.App.csproj -c Release -r win-x64 --self-con
 - Modrinth 模组搜索、版本筛选和下载到实例 `mods` 目录
 - 标准 Yggdrasil 第三方皮肤站登录
 - Minecraft Server List Ping 联机服务器查询
+- Mojang 原版版本清单、客户端、依赖库和资源自动准备
+- 使用 Java 真实启动 Minecraft，并在第三方账户登录后注入 authlib-injector
 
-完整的 Minecraft 版本下载、账户登录和 classpath 启动将在后续模块中接入。
+当前启动链路以 Mojang 原版版本为基础，模组加载器和更复杂的版本继承关系将在后续完善。

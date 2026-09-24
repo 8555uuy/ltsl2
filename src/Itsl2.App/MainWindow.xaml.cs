@@ -1,5 +1,6 @@
 using System.IO;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Windows;
 using Microsoft.Win32;
 using Itsl2.Core.Models;
@@ -10,6 +11,8 @@ namespace Itsl2.App;
 public partial class MainWindow : Window
 {
     private readonly JavaRuntimeService _javaRuntimeService = new();
+    private readonly MinecraftInstallService _minecraftInstallService = new();
+    private readonly MinecraftLaunchService _minecraftLaunchService = new();
     private readonly InstanceStore _instanceStore = new();
     private readonly ObservableCollection<GameInstance> _instances = new();
     private JavaRuntime? _javaRuntime;
@@ -60,7 +63,7 @@ public partial class MainWindow : Window
 
     private async void AddInstance_Click(object sender, RoutedEventArgs e)
     {
-        var instance = new GameInstance($"新实例 {_instances.Count + 1}", "待配置", "未设置游戏目录");
+        var instance = new GameInstance($"新实例 {_instances.Count + 1}", "Minecraft 1.20.1", "未设置游戏目录");
         _instances.Add(instance);
         InstanceList.SelectedItem = instance;
         InstanceCount.Text = _instances.Count.ToString();
@@ -132,10 +135,40 @@ public partial class MainWindow : Window
             return;
         }
 
-        SetBusy(true, "正在检查启动条件...");
-        await Task.Delay(180);
-        LaunchStatus.Text = "待安装";
-        SetBusy(false, "实例目录已配置，下一步接入版本文件下载后即可启动");
+        SetBusy(true, "正在准备 Minecraft 文件...");
+        try
+        {
+            var version = instance.Version.Replace("Minecraft ", "", StringComparison.Ordinal).Trim();
+            var progress = new Progress<string>(message => ActionMessage.Text = message);
+            var prepared = await _minecraftInstallService.PrepareAsync(version, instance.GameDirectory, progress);
+            string? authlibPath = null;
+            if (_account is not null)
+                authlibPath = await _minecraftInstallService.EnsureAuthlibInjectorAsync(progress);
+
+            var process = _minecraftLaunchService.Launch(prepared, _javaRuntime, _account, authlibPath);
+            LaunchStatus.Text = "运行中";
+            ActionMessage.Text = $"{instance.Name} 已启动";
+            process.EnableRaisingEvents = true;
+            process.Exited += (_, _) => Dispatcher.Invoke(() =>
+            {
+                LaunchStatus.Text = "已退出";
+                ActionMessage.Text = $"{instance.Name} 已退出，退出码：{process.ExitCode}";
+            });
+        }
+        catch (OperationCanceledException)
+        {
+            LaunchStatus.Text = "已取消";
+            ActionMessage.Text = "启动操作已取消";
+        }
+        catch (Exception ex) when (ex is HttpRequestException or IOException or InvalidOperationException or FileNotFoundException)
+        {
+            LaunchStatus.Text = "启动失败";
+            ActionMessage.Text = ex.Message;
+        }
+        finally
+        {
+            SetBusy(false, ActionMessage.Text);
+        }
     }
 
     private async Task SaveInstancesAsync()
@@ -156,5 +189,11 @@ public partial class MainWindow : Window
         DetectJavaButton.IsEnabled = !isBusy;
         OperationProgress.Visibility = isBusy ? Visibility.Visible : Visibility.Collapsed;
         ActionMessage.Text = message;
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        _minecraftInstallService.Dispose();
+        base.OnClosed(e);
     }
 }
