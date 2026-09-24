@@ -16,8 +16,10 @@
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock Text="itsl2" Foreground="White" FontSize="28" FontWeight="Bold" />
                     <TextBlock Text="Minecraft 启动器" Foreground="#AFC4E8" FontSize="12" Margin="2,2,0,34" />
+                    <TextBlock Text="工作台" Foreground="#7190BF" FontSize="11" FontWeight="SemiBold" Margin="4,0,0,8" />
                     <Button Content="⌂  总览" HorizontalContentAlignment="Left" Background="#2F6FED" Foreground="White" />
                     <Button Content="▣  游戏实例" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" />
+                    <TextBlock Text="工具" Foreground="#7190BF" FontSize="11" FontWeight="SemiBold" Margin="4,24,0,8" />
                     <Button Content="⌁  联机大厅" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" Click="Multiplayer_Click" />
                     <Button Content="↓  下载中心" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" Click="DownloadCenter_Click" />
                     <Button Content="⚙  皮肤站登录" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#D9E4F7" Margin="0,6,0,0" Click="LoginAccount_Click" />
@@ -28,6 +30,7 @@
                             <TextBlock Text="运行环境" Foreground="#AFC4E8" FontSize="12" />
                             <TextBlock x:Name="JavaStatus" Text="正在检测 Java..." Foreground="White" Margin="0,6,0,0" TextWrapping="Wrap" />
                             <TextBlock x:Name="AccountStatus" Text="未登录皮肤站" Foreground="#AFC4E8" Margin="0,8,0,0" TextWrapping="Wrap" />
+                            <Button Content="作者：8555uuy" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#7190BF" Padding="0" Margin="0,13,0,0" Click="CreatorInfo_Click" />
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -49,7 +52,6 @@
                 <Button Grid.Column="1" Content="＋ 添加实例" HorizontalAlignment="Right" Background="{StaticResource BlueBrush}" Foreground="White" Click="AddInstance_Click" />
             </Grid>
 
-                            <Button Content="作者：8555uuy" HorizontalContentAlignment="Left" Background="Transparent" Foreground="#AFC4E8" Padding="0" Margin="0,14,0,0" Click="CreatorInfo_Click" />
             <Grid Grid.Row="1" Margin="0,28,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -118,7 +120,7 @@
                         <TextBlock Text="快速启动" FontSize="19" FontWeight="SemiBold" />
                         <TextBlock x:Name="SelectedInstanceName" Text="生存服实例" Foreground="{StaticResource BlueDarkBrush}" FontSize="16" Margin="0,22,0,4" />
                         <TextBlock x:Name="SelectedInstancePath" Text="尚未设置游戏目录" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
-                        <Button x:Name="LaunchButton" Content="▶  启动游戏" Background="{StaticResource BlueBrush}" Foreground="White" Margin="0,28,0,8" Click="Launch_Click" />
+                        <Button x:Name="LaunchButton" Content="▶  启动游戏" Background="{StaticResource BlueBrush}" Foreground="White" Margin="0,24,0,8" Height="40" Click="Launch_Click" />
                         <Button Content="⌖  配置游戏目录" Background="White" Foreground="{StaticResource BlueDarkBrush}" Margin="0,0,0,8" Click="ConfigureInstance_Click" />
                         <Button x:Name="DetectJavaButton" Content="⟳  检测 Java" Background="White" Foreground="{StaticResource BlueDarkBrush}" Click="DetectJava_Click" />
                         <ProgressBar x:Name="OperationProgress" Height="3" Margin="0,18,0,0" IsIndeterminate="True" Visibility="Collapsed" Foreground="{StaticResource BlueBrush}" />
